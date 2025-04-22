@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class Fire {
     /**
      * Returns how long it takes for all vulnerable trees to be set on fire if a
@@ -38,6 +43,61 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
-        return -1;
+        int[] start = {matchR, matchC, 0};
+        Queue<int[]> lit = new LinkedList<>();
+        lit.add(start);
+
+        boolean[][] visited = new boolean[forest.length][forest[0].length];
+        int maxTime = 0;
+
+        while (!lit.isEmpty()){
+            int[] current = lit.poll();
+            int currentTime = current[2];
+            
+            if (currentTime > maxTime){
+                maxTime = currentTime;
+            }
+
+            List<int[]> nextMoves = traverseFire(forest, current, currentTime);
+
+            for (int[] move : nextMoves) {
+                int newR = move[0];
+                int newC = move[1];
+
+                if (!visited[newR][newC]) {
+                    visited[newR][newC] = true;  
+                    lit.add(new int[]{newR, newC, currentTime + 1});  
+                }
+            }
+
+        }
+       
+        return maxTime;
+    }
+
+    public static List<int[]> traverseFire(char[][] forest, int[] current, int time){
+        List<int[]> moves = new ArrayList<>();
+        int[][] steps = {
+            {-1, 0},
+            {1, 0},
+            {0, -1},
+            {0, 1}
+        };
+
+        int curR = current[0];
+        int curC = current[1];
+      
+        for (int[] step : steps) {
+            int newR = curR + step[0];
+            int newC = curC + step[1];
+
+            if (newR >= 0 && newR < forest.length && 
+                newC >= 0 && newC < forest[0].length && 
+                forest[newR][newC] == 't') {
+                    moves.add(new int[]{newR, newC, time});
+                }
+        }
+        
+        return moves;
     }
 }
