@@ -52,10 +52,50 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
-        return -1;
+
+        // int timer
+        int timer = 0;
+        // boolean[][] visited
+        boolean[][] visited = new boolean[forest.length][forest[0].length];
+
+        // queue linkedlist<int[]>
+        Queue<int[]> treeFire = new LinkedList<>();
+        // add current location to queue
+        treeFire.add(new int[]{matchR, matchC});
+
+        // while queue is not empty, iterate
+            // poll 
+            // if location valid
+                // add to visited
+                // change char to f
+                // add possible moves
+                // timer++;
+
+        while (!treeFire.isEmpty()) {
+            int[] current = treeFire.poll();
+            timer++;
+            // separate rows and colums
+            int curR = current[0];
+            int curC = current[1];
+
+            if (!visited[curR][curC]) {
+                visited[curR][curC] = true;
+                forest[curR][curC] = 'b';
+                List<int[]> moves = possibleMoves(forest, current);
+
+                treeFire.addAll(moves);
+
+            } else {
+                continue;
+            }
+        }
+
+
+
+        return timer;
     }
 
-    private List<int[]> possibleMoves(char[][] forest, int[] currentLocation) {
+    private static List<int[]> possibleMoves(char[][] forest, int[] currentLocation) {
         int curR = currentLocation[0];
         int curC = currentLocation[1];
 
