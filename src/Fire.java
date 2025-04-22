@@ -67,18 +67,25 @@ public class Fire {
 
         burningTree.add(startPoint);
 
-        // while (!burningTree.isEmpty()) {
-        // int[] current = burningTree.poll();
-        // int curR = current[0];
-        // int curC = current[1];
+        int countTime = 0;
+
+        while (!burningTree.isEmpty()) {
+            int[] current = burningTree.poll();
+            int curR = current[0];
+            int curC = current[1];
+
+        
+
         return bfs(forest, visited, matchR, matchC);
     }
 
+    }
     private static int bfs(char[][] forest, boolean[][] visited, int matchR, int matchC) {
+                
         //edge cases
         if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
         visited[matchR][matchC] = true;
 
-        return count;
+        return countTime;
     }
 }
