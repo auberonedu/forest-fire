@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Fire {
     /**
      * Returns how long it takes for all vulnerable trees to be set on fire if a
@@ -38,6 +41,52 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
-        return -1;
+
+        //int counter
+
+
+        return directions(forest, matchR, matchC);
+    }
+
+    private static int directions(char[][] forest, int r, int c) {
+        Queue<int[]> queue = new LinkedList<>();
+
+        //map of directions
+        int[][] direction = new int[][] {
+            {-1,0},
+            {1,0},
+            {0,-1},
+            {0,1}
+        };
+
+        queue.offer(new int[]{r, c, -1});
+
+        int counter = 0;
+
+
+        //while not empty
+        while(!queue.isEmpty()) {
+
+            int[] curr = queue.poll();
+
+            int count = curr[2] + 1;
+
+            forest[curr[0]][curr[1]] = 'f';
+
+            for (int[] dir : direction) {
+                int newR = curr[0] + dir[0];
+                int newC = curr[1] + dir[1];
+
+                if (newR >= 0 && newR < forest.length &&
+                newC >= 0 && newC < forest[0].length &&
+                forest[newR][newC] == 't'){
+                    queue.offer(new int[]{newR, newC, count});
+                }
+            }
+            
+            counter = count;
+        }
+
+        return counter;
     }
 }
