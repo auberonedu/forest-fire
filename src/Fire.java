@@ -52,20 +52,26 @@ public class Fire {
         if (forest == null)
             throw new NullPointerException("Forest 2D matrix cannot be null!");
 
-        //
-        int[] startPoint = new int[] { matchR, matchC };
+        //directions here up down left right
+        int[][] directions = {
+            {1, 0},
+            {-1, 0},
+            {0, 1},
+            {0, -1}
+        };
 
+        boolean[][] visited = new boolean[forest.length][forest[0].length];
         Queue<int[]> burningTree = new LinkedList<>();
 
+        int[] startPoint = new int[] { matchR, matchC };
+
         burningTree.add(startPoint);
-        boolean[][] visited = new boolean[forest.length][forest[0].length];
 
         // while (!burningTree.isEmpty()) {
         // int[] current = burningTree.poll();
         // int curR = current[0];
         // int curC = current[1];
         return bfs(forest, visited, matchR, matchC);
-
     }
 
     private static int bfs(char[][] forest, boolean[][] visited, int matchR, int matchC) {
@@ -73,9 +79,6 @@ public class Fire {
         if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
         visited[matchR][matchC] = true;
 
-
-
         return count;
     }
-
 }
