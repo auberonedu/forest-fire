@@ -59,14 +59,17 @@ public class Fire {
             {0,1}
         };
 
-        queue.offer(new int[]{r, c});
+        queue.offer(new int[]{r, c, -1});
 
         int counter = 0;
+
 
         //while not empty
         while(!queue.isEmpty()) {
 
             int[] curr = queue.poll();
+
+            int count = curr[2] + 1;
 
             forest[curr[0]][curr[1]] = 'f';
 
@@ -77,10 +80,11 @@ public class Fire {
                 if (newR >= 0 && newR < forest.length &&
                 newC >= 0 && newC < forest[0].length &&
                 forest[newR][newC] == 't'){
-                    queue.offer(new int[]{newR, newC});
-                    counter++;
+                    queue.offer(new int[]{newR, newC, count});
                 }
             }
+            
+            counter = count;
         }
 
         return counter;
