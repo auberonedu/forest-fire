@@ -55,7 +55,7 @@ public class Fire {
             int curR = current[0];
             int curC = current[1];
             int currentTime = current[2];
-
+            
             if (currentTime > maxTime){
                 maxTime = currentTime;
             }
@@ -65,11 +65,14 @@ public class Fire {
             }
 
             visited[curR][curC] = true;
+
             List<int[]> nextMoves = traverseFire(forest, current, currentTime);
 
             lit.addAll(nextMoves);
+
         }
        
+        
         return maxTime;
     }
 
@@ -84,7 +87,7 @@ public class Fire {
 
         int curR = current[0];
         int curC = current[1];
-        time++; 
+        
         
         for (int[] step : steps) {
             int newR = curR + step[0];
@@ -92,8 +95,8 @@ public class Fire {
 
             if (newR >= 0 && newR < forest.length && 
                 newC >= 0 && newC < forest[0].length && 
-                forest[newR][newC] != 't') {
-                    moves.add(new int[]{newR, newC, time});
+                forest[newR][newC] != '.') {
+                    moves.add(new int[]{newR, newC, time + 1});
                 }
         }
         
