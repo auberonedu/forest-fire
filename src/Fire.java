@@ -45,7 +45,7 @@ public class Fire {
         //int counter
 
 
-        return -1;
+        return directions(forest, matchR, matchC);
     }
 
     private static int directions(char[][] forest, int r, int c) {
@@ -68,6 +68,8 @@ public class Fire {
 
             int[] curr = queue.poll();
 
+            forest[curr[0]][curr[1]] = 'f';
+
             for (int[] dir : direction) {
                 int newR = curr[0] + dir[0];
                 int newC = curr[1] + dir[1];
@@ -76,9 +78,9 @@ public class Fire {
                 newC >= 0 && newC < forest[0].length &&
                 forest[newR][newC] == 't'){
                     queue.offer(new int[]{newR, newC});
+                    counter++;
                 }
             }
-            counter++;
         }
 
         return counter;
