@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Fire {
@@ -41,28 +43,40 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
+        int[] start = {matchR, matchC};
         Queue<int[]> lit = new LinkedList<>();
+        lit.add(start);
+
         boolean[][] visited = new boolean[forest.length][forest[0].length];
         int time = 0;
-        int[][] moves = {
+       
+        
+        return -1;
+    }
+
+    public static List<int[]> traverseFire(char[][] forest, int[] start, boolean[][] visited){
+        List<int[]> moves = new ArrayList<>();
+        int[][] steps = {
             {-1, 0},
             {1, 0},
             {0, -1},
             {0, 1}
         };
 
+        int curR = start[0];
+        int curC = start[1];
         
+        for (int[] step : steps) {
+            int newR = curR + step[0];
+            int newC = curC + step[1];
 
-
-
-        return -1;
-    }
-
-    public static void traverseFire(char[][] forest, int matchR, int matchC, int[][] moves, boolean[][] visited){
-        if (matchR < 0 || matchC < 0 || matchR >= forest.length || matchC >= forest[0].length){
-
+            if (newR > 0 && newR < forest.length && 
+                newC >= 0 && newC < forest[0].length && 
+                forest[newR][newC] != '.') {
+                    moves.add(new int[]{newR, newC});
+                }
         }
-
-        int[] coord = {matchR, matchC, time};
+        
+        return moves;
     }
 }
