@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Fire {
     /**
      * Returns how long it takes for all vulnerable trees to be set on fire if a
@@ -38,6 +40,13 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
+
+        //base cases
+        if (forest == null) throw new NullPointerException("Forest 2D matrix cannot be null!");
+        
+        int[] startPoint = new Array(forest[matchR][matchC]);
+
+
         return -1;
     }
 }
