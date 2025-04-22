@@ -44,8 +44,20 @@ public class Fire {
         //base cases
         if (forest == null) throw new NullPointerException("Forest 2D matrix cannot be null!");
         
-        int[] startPoint = new Array(forest[matchR][matchC]);
+        //
+        int[] startPoint = new int[](forest[matchR][matchC]);
 
+        Queue<int[]> burningTree = new LinkedList<>();
+
+        burningTree.add(startPoint);
+        boolean[][] visited = new boolean[forest.length][forest[0].length];
+
+        while (!burningTree.isEmpty()) {
+            int[] current = burningTree.poll();
+            int curR = current[0];
+            int curC = current[1];
+
+        }
 
         return -1;
     }
