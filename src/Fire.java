@@ -111,7 +111,7 @@ public class Fire {
             int newR = curR + direction[0];
             int newC = curC + direction[1];
 
-            if(newR < 0 || newR >= forest.length || newC < 0 || newC >= forest[0].length || forest[newR][newC] != 't') {
+            if(newR >= 0 && newR < forest.length && newC >= 0 && newC < forest[0].length && forest[newR][newC] == 't') {
                 moves.add(new int[]{newR, newC, timer});
             }
         }
