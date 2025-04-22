@@ -1,3 +1,6 @@
+import java.util.Deque;
+import java.util.ArrayDeque;
+
 public class Fire {
     /**
      * Returns how long it takes for all vulnerable trees to be set on fire if a
