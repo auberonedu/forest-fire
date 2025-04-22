@@ -45,29 +45,34 @@ public class Fire {
         // just a location. What other information might be useful?
 
         Queue<int[]> queue = new LinkedList<>();
-
-        queue.add(new int[] {matchR, matchC});
+        
+        queue.add(new int[] {matchR, matchC, 0});
 
         boolean[][] visited = new boolean[forest.length][forest[0].length];
+
+        int count = 0;
 
         while (!queue.isEmpty()) {
             int[] current = queue.poll();
 
             int curRow = current[0];
             int curCol = current[1];
+            int time = current[2];
 
-            if (forest[curRow][curCol] == '.') return 0;
+            if (forest[curRow][curCol] == '.') continue;
             if (visited[curRow][curCol]) continue;
 
             visited[curRow][curCol] = true;
 
-            List<int[]> moves = possibleMoves(forest, current);
+            List<int[]> moves = possibleMoves(forest, current, time);
             queue.addAll(moves);
+
+            count = Math.max(count, time);
         }
-        return -1;
+        return count;
     }
 
-    public static List<int[]> possibleMoves (char[][] forest, int[] current) {
+    public static List<int[]> possibleMoves (char[][] forest, int[] current, int time) {
         int curRow = current[0];
         int curCol = current[1];
 
@@ -87,10 +92,9 @@ public class Fire {
             if (newRow >= 0 && newRow < forest.length &&
                 newCol >= 0 && newCol < forest[0].length &&
                 forest[newRow][newCol] == 't') {
-                    moves.add(new int[]{newRow, newCol});
+                    moves.add(new int[]{newRow, newCol, time + 1});
                 }
         }
-
         return moves;
     }
 }
