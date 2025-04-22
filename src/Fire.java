@@ -38,6 +38,10 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
-        return -1;
+        // create a queue to track possible moves
+        // write a for-each loop to iterate through each possible move
+        // add tree location and extra information (time it took to reach)
+        // write variables to track the current location of columns and rows
+        // potentially an integer array to track current coordinates
     }
 }
