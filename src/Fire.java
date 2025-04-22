@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Fire {
     /**
      * Returns how long it takes for all vulnerable trees to be set on fire if a
@@ -39,5 +42,32 @@ public class Fire {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
         return -1;
+    }
+
+    public static List<int[]> possibleMoves (char[][] forest, int[] current) {
+        int curRow = current[0];
+        int curCol = current[1];
+
+        int[][] directions = {
+            {-1, 0},
+            {1, 0},
+            {0, -1},
+            {0, 1}
+        };
+
+        List<int[]> moves = new ArrayList<>();
+        
+        for (int[] dir : directions) {
+            int newRow = curRow + dir[0];
+            int newCol = curCol + dir[1];
+
+            if (newRow >= 0 && newRow < forest.length &&
+                newCol >= 0 && newCol < forest[0].length &&
+                forest[newRow][newCol] == 't') {
+                    moves.add(new int[]{newRow, newCol})
+                }
+        }
+
+        return moves;
     }
 }
