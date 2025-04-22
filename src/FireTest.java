@@ -22,6 +22,24 @@ public class FireTest {
     }
 
     @Test
+    public void testTimeToBurnSimpler() {
+        char[][] forest = {
+            {'t','.','.','t'},
+            {'.','.','t','t'},
+            {'t','.','t','t'},
+            {'t','t','t','t'}
+        };
+
+        int matchR = 2;
+        int matchC = 2;
+
+        int expected = 4;
+        int actual = Fire.timeToBurn(forest, matchR, matchC);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testTimeToBurnEmptySurroundedTree() {
         char[][] forest = {
             {'.','.','.','.'},

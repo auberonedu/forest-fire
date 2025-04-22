@@ -68,6 +68,7 @@ public class Fire {
 
             List<int[]> nextMoves = traverseFire(forest, current, currentTime);
 
+
             lit.addAll(nextMoves);
 
         }
@@ -87,6 +88,7 @@ public class Fire {
 
         int curR = current[0];
         int curC = current[1];
+        time++;
         
         
         for (int[] step : steps) {
@@ -96,7 +98,7 @@ public class Fire {
             if (newR >= 0 && newR < forest.length && 
                 newC >= 0 && newC < forest[0].length && 
                 forest[newR][newC] == 't') {
-                    moves.add(new int[]{newR, newC, time + 1});
+                    moves.add(new int[]{newR, newC, time});
                 }
         }
         
