@@ -53,15 +53,15 @@ public class Fire {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
 
-        // int timer
         int timer = 0;
+
         // boolean[][] visited
         boolean[][] visited = new boolean[forest.length][forest[0].length];
 
         // queue linkedlist<int[]>
         Queue<int[]> treeFire = new LinkedList<>();
         // add current location to queue
-        treeFire.add(new int[]{matchR, matchC});
+        treeFire.add(new int[]{matchR, matchC, timer});
 
         // while queue is not empty, iterate
             // poll 
@@ -73,18 +73,17 @@ public class Fire {
 
         while (!treeFire.isEmpty()) {
             int[] current = treeFire.poll();
-            timer++;
             // separate rows and colums
             int curR = current[0];
             int curC = current[1];
+            int curTimer = current[2];
 
+            // if curR = -1, timer++
             if (!visited[curR][curC]) {
                 visited[curR][curC] = true;
                 forest[curR][curC] = 'b';
-                List<int[]> moves = possibleMoves(forest, current);
-
+                List<int[]> moves = possibleMoves(forest, current, curTimer + 1);
                 treeFire.addAll(moves);
-
             } else {
                 continue;
             }
@@ -95,7 +94,7 @@ public class Fire {
         return timer;
     }
 
-    private static List<int[]> possibleMoves(char[][] forest, int[] currentLocation) {
+    private static List<int[]> possibleMoves(char[][] forest, int[] currentLocation, int timer) {
         int curR = currentLocation[0];
         int curC = currentLocation[1];
 
@@ -113,7 +112,7 @@ public class Fire {
             int newC = curC + direction[1];
 
             if(newR < 0 || newR >= forest.length || newC < 0 || newC >= forest[0].length || forest[newR][newC] != 't') {
-                moves.add(new int[]{newR, newC});
+                moves.add(new int[]{newR, newC, timer});
             }
         }
 
