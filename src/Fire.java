@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Fire {
@@ -66,5 +68,26 @@ public class Fire {
             
         }
         return -1;
+    }
+
+    public static List<int[]> possibleMoves(char[][] forest, int row, int col) {
+        List<int[]> moves = new ArrayList<>();
+
+        int[][] directions = {
+            {-1, 0}, // up
+            {1, 0}, // down
+            {0, -1}, // left
+            {0, 1} // right
+        }; 
+
+        for (int[] direction : directions) {
+            int newRow = row + direction[0];
+            int newCol = col + direction[1];
+
+            if (newRow >= 0 && newRow < forest.length && newCol >= 0 && newCol < forest[0].length && forest[newRow][newCol] == 't') {
+                moves.add(new int[]{newRow, newCol});
+            }
+        }
+        return moves;
     }
 }
