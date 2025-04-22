@@ -38,5 +38,31 @@ public class FireTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testFullForest() {
+        char[][] forest = {
+            {'t', 't', 't'},
+            {'t', 't', 't'},
+            {'t', 't', 't'}
+        };
+        int matchR = 1, matchC = 1;
+        int expected = 2; 
+        int actual = Fire.timeToBurn(forest, matchR, matchC);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testEmptyForest() {
+        char[][] forest = {
+            {'.', '.', '.'},
+            {'.', '.', '.'},
+            {'.', '.', '.'}
+        };
+        int matchR = 1, matchC = 1;
+        int expected = 0;
+        int actual = Fire.timeToBurn(forest, matchR, matchC);
+        assertEquals(expected, actual);
+    }
 }
 
