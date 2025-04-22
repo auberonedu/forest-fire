@@ -74,7 +74,13 @@ public class Fire {
             int curR = current[0];
             int curC = current[1];
 
-        
+            for(int[] direction : directions) {
+                int newR = curR + direction[0];
+                int newC = curC + direction[1];
+
+                if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
+                visited[matchR][matchC] = true;
+            }
 
         return bfs(forest, visited, matchR, matchC);
     }
@@ -82,10 +88,10 @@ public class Fire {
     }
     private static int bfs(char[][] forest, boolean[][] visited, int matchR, int matchC) {
                 
-        //edge cases
-        if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
-        visited[matchR][matchC] = true;
+            //edge cases
+            if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
+            visited[matchR][matchC] = true;
 
-        return countTime;
-    }
+            return countTime;
+        }
 }
