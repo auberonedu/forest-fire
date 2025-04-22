@@ -52,28 +52,26 @@ public class Fire {
 
         while (!lit.isEmpty()){
             int[] current = lit.poll();
-            int curR = current[0];
-            int curC = current[1];
             int currentTime = current[2];
             
             if (currentTime > maxTime){
                 maxTime = currentTime;
             }
 
-            if (visited[curR][curC]){
-                continue;
-            }
-
-            visited[curR][curC] = true;
-
             List<int[]> nextMoves = traverseFire(forest, current, currentTime);
 
+            for (int[] move : nextMoves) {
+                int newR = move[0];
+                int newC = move[1];
 
-            lit.addAll(nextMoves);
+                if (!visited[newR][newC]) {
+                    visited[newR][newC] = true;  
+                    lit.add(new int[]{newR, newC, currentTime + 1});  
+                }
+            }
 
         }
        
-        
         return maxTime;
     }
 
@@ -88,9 +86,7 @@ public class Fire {
 
         int curR = current[0];
         int curC = current[1];
-        time++;
-        
-        
+      
         for (int[] step : steps) {
             int newR = curR + step[0];
             int newC = curC + step[1];

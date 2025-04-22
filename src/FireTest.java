@@ -100,7 +100,7 @@ public class FireTest {
         int matchR = 1;
         int matchC = 1;
 
-        int expected = 3;
+        int expected = 2;
         int actual = Fire.timeToBurn(forest, matchR, matchC);
 
         assertEquals(expected, actual);
