@@ -51,6 +51,8 @@ public class Fire {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
 
+        if (forest[matchR][matchC] != 't') throw new IllegalArgumentException("Not a tree!");
+
         int timer = 0;
 
         // boolean[][] visited
@@ -79,7 +81,6 @@ public class Fire {
             // if curR = -1, timer++
             if (!visited[curR][curC]) {
                 visited[curR][curC] = true;
-                forest[curR][curC] = 'b';
                 List<int[]> moves = possibleMoves(forest, current, curTimer + 1);
                 treeFire.addAll(moves);
                 timer = Math.max(curTimer, timer);
