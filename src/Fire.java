@@ -51,23 +51,30 @@ public class Fire {
         boolean[][] burnt = new boolean[forest.length][forest[0].length];
         Queue<int[]> queue = new LinkedList<>();
         queue.add(start); 
-        
+        int maxTime = 0;
         while(!queue.isEmpty()){
             int[] current = queue.poll();
             
             int row = current[0];
             int col = current[1];
-            int time = current[2]; 
+            int time = current[2];  
 
             if(burnt[row][col]){
                 continue;
             } 
-
             burnt[row][col] = true; 
 
+            List<int[]> moves = possibleMoves(forest, row, col); 
+            for(var move : moves){
+                int[] toAdd = new int[]{move[0],move[1], time + 1};
+                queue.add(toAdd);
+            } 
             
+            if(time > maxTime){
+                maxTime = time;
+            }
         }
-        return -1;
+        return maxTime;
     }
 
     public static List<int[]> possibleMoves(char[][] forest, int row, int col) {
