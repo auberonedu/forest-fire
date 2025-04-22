@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.*;
+
 public class Fire {
     /**
      * Returns how long it takes for all vulnerable trees to be set on fire if a
@@ -35,9 +38,45 @@ public class Fire {
      * @param matchC The column the match is lit at
      * @return the time at which the final tree to be incinerated starts burning
      */
+
+     // need possible moves
+     // logic to make sure next possible move is a tree that is also not on fire
+     // queue 
+     // add possiblemoves
+     // traverse
+     // will need visited grid
+     // need count for time
+     // 
+
+
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
         return -1;
+    }
+
+    private List<int[]> possibleMoves(char[][] forest, int[] currentLocation) {
+        int curR = currentLocation[0];
+        int curC = currentLocation[1];
+
+        List<int[]> moves = new ArrayList<>();
+
+        int[][] directions = new int[][] {
+            {-1, 0}, // up
+            {1, 0}, // down
+            {0, -1}, // left
+            {0, 1} // right
+        };
+
+        for(int[] direction: directions) {
+            int newR = curR + direction[0];
+            int newC = curC + direction[1];
+
+            if(newR < 0 || newR >= forest.length || newC < 0 || newC >= forest[0].length || forest[newR][newC] != 't') {
+                moves.add(new int[]{newR, newC});
+            }
+        }
+
+        return moves;
     }
 }
