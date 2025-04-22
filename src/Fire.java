@@ -48,7 +48,7 @@ public class Fire {
         return -1;
     }
 
-    private static void directions(char[][] forest, int r, int c) {
+    private static int directions(char[][] forest, int r, int c) {
         Queue<int[]> queue = new LinkedList<>();
 
         //map of directions
@@ -59,11 +59,28 @@ public class Fire {
             {0,1}
         };
 
+        queue.offer(new int[]{r, c});
+
+        int counter = 0;
+
         //while not empty
         while(!queue.isEmpty()) {
-            for (int[] dir : direction) {
 
+            int[] curr = queue.poll();
+
+            for (int[] dir : direction) {
+                int newR = curr[0] + dir[0];
+                int newC = curr[1] + dir[1];
+
+                if (newR >= 0 && newR < forest.length &&
+                newC >= 0 && newC < forest[0].length &&
+                forest[newR][newC] == 't'){
+                    queue.offer(new int[]{newR, newC});
+                }
             }
+            counter++;
         }
+
+        return counter;
     }
 }
