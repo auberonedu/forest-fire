@@ -58,11 +58,18 @@ public class Fire {
         deq.addLast(new int[]{matchR, matchC, 0});
         while(deq.size() > 0) {
             int[] current = deq.removeFirst();
-            if(seen[current[0]][current[1]] != 's')
-            for(int[] move : moves) {
-                deq.addLast(new int[]{current[0]+move[0],current[1]+move[1], current[2]++});
+            if(max < current[2]) {
+                max = current[2];
             }
-            seen[current[0]][current[1]] = 's';
+            if(seen[current[0]][current[1]] != 's') {
+                for(int[] move : moves) {
+                    int[] currentModified = new int[]{current[0]+move[0], current[1]+move[1], current[2]++};
+                    if(forest[currentModified[0]][currentModified[1]] != 't') {
+                        deq.addLast(currentModified);
+                    }
+                }
+                seen[current[0]][current[1]] = 's';
+            }
         }
 
         return max;
