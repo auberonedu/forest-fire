@@ -51,6 +51,18 @@ public class Fire {
         queue.add(start); 
         
         while(!queue.isEmpty()){
+            int[] current = queue.poll();
+            
+            int row = current[0];
+            int col = current[1];
+            int time = current[2]; 
+
+            if(burnt[row][col]){
+                continue;
+            } 
+
+            burnt[row][col] = true; 
+
             
         }
         return -1;
