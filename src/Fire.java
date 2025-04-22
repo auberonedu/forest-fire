@@ -48,7 +48,6 @@ public class Fire {
         lit.add(start);
 
         boolean[][] visited = new boolean[forest.length][forest[0].length];
-        int time = 0;
         int maxTime = 0;
 
         while (!lit.isEmpty()){
@@ -66,14 +65,11 @@ public class Fire {
             }
 
             visited[curR][curC] = true;
-
             List<int[]> nextMoves = traverseFire(forest, current, currentTime);
 
             lit.addAll(nextMoves);
-
         }
        
-        
         return maxTime;
     }
 
