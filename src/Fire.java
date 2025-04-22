@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Fire {
     /**
@@ -41,6 +43,27 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
+
+        Queue<int[]> queue = new LinkedList<>();
+
+        queue.add(new int[] {matchR, matchC});
+
+        boolean[][] visited = new boolean[forest.length][forest[0].length];
+
+        while (!queue.isEmpty()) {
+            int[] current = queue.poll();
+
+            int curRow = current[0];
+            int curCol = current[1];
+
+            if (forest[curRow][curCol] == '.') return 0;
+            if (visited[curRow][curCol]) continue;
+
+            visited[curRow][curCol] = true;
+
+            List<int[]> moves = possibleMoves(forest, current);
+            queue.addAll(moves);
+        }
         return -1;
     }
 
@@ -64,7 +87,7 @@ public class Fire {
             if (newRow >= 0 && newRow < forest.length &&
                 newCol >= 0 && newCol < forest[0].length &&
                 forest[newRow][newCol] == 't') {
-                    moves.add(new int[]{newRow, newCol})
+                    moves.add(new int[]{newRow, newCol});
                 }
         }
 
