@@ -46,8 +46,6 @@ public class Fire {
      // traverse
      // will need visited grid
      // need count for time
-     // 
-
 
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
@@ -84,13 +82,11 @@ public class Fire {
                 forest[curR][curC] = 'b';
                 List<int[]> moves = possibleMoves(forest, current, curTimer + 1);
                 treeFire.addAll(moves);
+                timer = Math.max(curTimer, timer);
             } else {
                 continue;
             }
         }
-
-
-
         return timer;
     }
 
@@ -115,7 +111,6 @@ public class Fire {
                 moves.add(new int[]{newR, newC, timer});
             }
         }
-
         return moves;
     }
 }
