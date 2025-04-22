@@ -51,15 +51,23 @@ public class Fire {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
 
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{matchR, matchR});
+        Queue<List<int[]>> queue = new LinkedList<>();
+        List<int[]> currentPoint = new ArrayList<>();
+
+        currentPoint.add(new int[]{matchR, matchC});
 
         boolean[][] visited = new boolean[forest.length][forest[0].length];
+
+        queue.add(currentPoint);
+        queue.add(possibleMoves(forest, matchR, matchC, visited));
+
+        // for (var array : possibleMoves(forest, matchR, matchC, visited)) {
+        //     queue.add(array);
+        // }
 
         int burningTime = 0;
 
         while(!queue.isEmpty()) {
-            burningTime++;
             int[] current = queue.poll();
 
             int currentMatchR = current[0];
@@ -67,7 +75,9 @@ public class Fire {
 
             if(visited[currentMatchR][currentMatchC]) {
                 continue;
-            }
+            }            
+            
+            burningTime++;
 
             visited[currentMatchR][currentMatchC] = true;
 
