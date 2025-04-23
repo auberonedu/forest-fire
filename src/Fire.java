@@ -67,6 +67,9 @@ public class Fire {
         boolean[][] visited = new boolean[ROW][COL];
         Queue<int[]> burningTree = new LinkedList<>();
         
+        burningTree.offer(new int[]{matchR, matchC, 0});
+        visited[matchR][matchC] = true;
+
         int countTime = 0;
 
         while (!burningTree.isEmpty()) {
@@ -76,29 +79,27 @@ public class Fire {
             int time = current[2];
 
             //find the max time and compare between the highest number to the current number 
+            if (time > countTime) {
+                countTime = time;
+            }
 
-            //get the adjacent trees then increment
-            List<int[]> moves = possibleDirections(forest, current, curR, curC);
-
-            //check all directions
+            //check all directions, this is where fire spreads
             for(int[] direction : directions) {
-                int newR = direction[0];
-                int newC = direction[1];
+                int newR = curR + direction[0];
+                int newC = curC + direction[1];
                 
                 visited[newR][newC] = true;
                 burningTree.offer(new int[] {newR, newC, time + 1});
 
                 //check the bounds
-                if (newR < 0 || newC < 0 || newR >= forest.length || newC >= forest[0].length || visited[newR][newC] || forest[newR][newC]=='.') return 0;
+                if (newR < 0 || newC < 0 || newR >= forest.length || 
+                newC >= forest[0].length || visited[newR][newC] || 
+                forest[newR][newC]=='.') continue;
+
+                visited[newR][newC] = true;
+                burningTree.offer(new int[] {newR, newC, time + 1});
             }
         }
         return countTime;
     }
-
-    // private static int bfs(char[][] forest, boolean[][] visited, int matchR, int matchC) {
-                
-    //         //edge cases
-    //         if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
-    //         return countTime;
-    //     }
 }
