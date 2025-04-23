@@ -52,52 +52,53 @@ public class Fire {
         if (forest == null)
             throw new NullPointerException("Forest 2D matrix cannot be null!");
 
-        boolean[][] visited = new boolean[forest.length][forest[0].length];
+        //directions here up down left right
+        int[][] directions = {
+            //up, down, right, left
+            {-1, 0}, 
+            {1, 0},
+            {0, 1},
+            {0, -1}
+        };
+
+        int ROW = forest.length;
+        int COL = forest[0].length;
+
+        boolean[][] visited = new boolean[ROW][COL];
         Queue<int[]> burningTree = new LinkedList<>();
         
+        int countTime = 0;
+
         while (!burningTree.isEmpty()) {
             int[] current = burningTree.poll();
             int curR = current[0];
             int curC = current[1];
+            int time = current[2];
 
             //find the max time and compare between the highest number to the current number 
 
             //get the adjacent trees then increment
-            
+            List<int[]> moves = possibleDirections(forest, current, curR, curC);
+
             //check all directions
             for(int[] direction : directions) {
-                int newR = curR + direction[0];
-                int newC = curC + direction[1];
+                int newR = direction[0];
+                int newC = direction[1];
+                
+                visited[newR][newC] = true;
+                burningTree.offer(new int[] {newR, newC, time + 1});
 
                 //check the bounds
                 if (newR < 0 || newC < 0 || newR >= forest.length || newC >= forest[0].length || visited[newR][newC] || forest[newR][newC]=='.') return 0;
-                visited[newR][newC] = true;
             }
         }
-
-        // int[] startPoint = new int[] { matchR, matchC };
-        // burningTree.add(startPoint);
-        
-        visited[matchR][matchC] = true;
-        int countTime = 0;
         return countTime;
     }
 
-    private static List<int[]> possibleDirections(char[][] forest, int[] currentlocation){
-        //directions here up down left right
-        int[][] directions = {
-            {1, 0},
-            {-1, 0},
-            {0, 1},
-            {0, -1}
-        };
-        
-    }
-
-    private static int bfs(char[][] forest, boolean[][] visited, int matchR, int matchC) {
+    // private static int bfs(char[][] forest, boolean[][] visited, int matchR, int matchC) {
                 
-            //edge cases
-            if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
-            return countTime;
-        }
+    //         //edge cases
+    //         if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
+    //         return countTime;
+    //     }
 }
