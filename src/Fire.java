@@ -54,7 +54,8 @@ public class Fire {
         Queue<int[]> queue = new LinkedList<>();
         boolean[][] visited = new boolean[forest.length][forest[0].length];
 
-        queue.add(possibleMoves(forest, matchR, matchC));
+        // Add the initial coordinate of tree set on fire and it's burning time
+        queue.add(new int[] { matchR, matchC, 0 });
 
         int burningTime = 0;
 
@@ -63,12 +64,13 @@ public class Fire {
 
             int currentMatchR = current[0];
             int currentMatchC = current[1];
+            int currentBurningTime = current[2];
+
+            burningTime = Math.max(burningTime, currentBurningTime);
 
             if (visited[currentMatchR][currentMatchC]) {
                 continue;
             }
-
-            burningTime++;
 
             visited[currentMatchR][currentMatchC] = true;
 
