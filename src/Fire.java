@@ -51,56 +51,57 @@ public class Fire {
         // base cases
         if (forest == null)
             throw new NullPointerException("Forest 2D matrix cannot be null!");
-        if (forest[matchR][matchC] != 't') return 0;
+        if (forest[matchR][matchC] != 't')
+            return 0;
 
-
-        //directions here up down left right
+        // initializing directions variable for more elegant code
         int[][] directions = {
-            //up, down, right, left
-            {-1, 0}, 
-            {1, 0},
-            {0, 1},
-            {0, -1}
+                // up, down, right, left
+                { -1, 0 },
+                { 1, 0 },
+                { 0, 1 },
+                { 0, -1 }
         };
-
+        // for readability
         int ROW = forest.length;
         int COL = forest[0].length;
-
+        // initialize visited to avoid looping and Queue structure
         boolean[][] visited = new boolean[ROW][COL];
         Queue<int[]> burningTree = new LinkedList<>();
-        
-        //start position of the fire
-        //.offer() adds to the queue like .add() but won’t crash if the queue is full
-        burningTree.offer(new int[]{matchR, matchC, 0});
+
+        // start position of the fire
+        // .offer() adds to the queue like .add() but won’t crash if the queue is full
+        burningTree.offer(new int[] { matchR, matchC, 0 });
         visited[matchR][matchC] = true;
+        // initialize counter
+        int maxStepCount = 0;
 
-        int  maxTime = 0;
-
-        //where it starts the fire burns each tree and spreads to adjacent trees
+        // perform BFS to spread fire to all reachable trees
         while (!burningTree.isEmpty()) {
             int[] current = burningTree.poll();
             int curR = current[0];
             int curC = current[1];
             int time = current[2];
 
-            //Math.max compares countTime to the current number 
-            maxTime = Math.max(maxTime, time);
+            // Math.max compare (maxStepCount to current time)
+            maxStepCount = Math.max(maxStepCount, time);
 
-            //check all directions, this is where fire spreads
-            for(int[] direction : directions) {
+            // iterate all cardinal directions
+            for (int[] direction : directions) {
                 int newR = curR + direction[0];
                 int newC = curC + direction[1];
 
-                //check the bounds
-                if (newR < 0 || newC < 0 || newR >= forest.length || 
-                newC >= forest[0].length || visited[newR][newC] || 
-                forest[newR][newC]=='.') continue;
+                // edge cases: check the bounds, visited, treeless cells
+                if (newR < 0 || newC < 0 || newR >= forest.length ||
+                        newC >= forest[0].length || visited[newR][newC] ||
+                        forest[newR][newC] == '.')
+                    continue;
 
-                //mark visited, aded to queue, then increment the time
+                // edge cases passed -> mark visited, add to queue, increment time
                 visited[newR][newC] = true;
-                burningTree.offer(new int[] {newR, newC, time + 1});
+                burningTree.offer(new int[] { newR, newC, time + 1 });
             }
         }
-        return maxTime;
+        return maxStepCount;
     }
 }
