@@ -43,15 +43,22 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
-        //neighbors method 
-        //we need visisted 
-        //pass int[] in queue like: row, column, time
+        // neighbors method 
+        // we need visisted 
+        // pass int[] in queue like: row, column, time
 
+        // create starting point
         int[] start = new int[]{matchR, matchC, 0};
+
+        // create a queue to hold the burning trees
         boolean[][] burnt = new boolean[forest.length][forest[0].length];
+
         Queue<int[]> queue = new LinkedList<>();
         queue.add(start); 
+
         int maxTime = 0;
+
+        // process all points in the queue
         while(!queue.isEmpty()){
             int[] current = queue.poll();
             
@@ -59,24 +66,29 @@ public class Fire {
             int col = current[1];
             int time = current[2];  
 
-            if(burnt[row][col]){
+            // check if the current tree is already burnt
+            if (burnt[row][col]){
                 continue;
             } 
+
             burnt[row][col] = true; 
 
             List<int[]> moves = possibleMoves(forest, row, col); 
-            for(var move : moves){
+
+            // add each reachable tree to the queue
+            for (var move : moves){
                 int[] toAdd = new int[]{move[0],move[1], time + 1};
                 queue.add(toAdd);
             } 
             
-            if(time > maxTime){
+            if( time > maxTime){
                 maxTime = time;
             }
         }
         return maxTime;
     }
 
+    // returns a list of valid moves for a tree at the given location
     public static List<int[]> possibleMoves(char[][] forest, int row, int col) {
         List<int[]> moves = new ArrayList<>();
 
@@ -87,14 +99,18 @@ public class Fire {
             {0, 1} // right
         }; 
 
+        // check all four directions
         for (int[] direction : directions) {
             int newRow = row + direction[0];
             int newCol = col + direction[1];
 
-            if (newRow >= 0 && newRow < forest.length && newCol >= 0 && newCol < forest[0].length && forest[newRow][newCol] == 't') {
+            if (newRow >= 0 && newRow < forest.length && 
+                newCol >= 0 && newCol < forest[0].length && 
+                forest[newRow][newCol] == 't') {
                 moves.add(new int[]{newRow, newCol});
             }
         }
+
         return moves;
     }
 }
