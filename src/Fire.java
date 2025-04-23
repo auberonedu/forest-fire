@@ -51,6 +51,8 @@ public class Fire {
         // base cases
         if (forest == null)
             throw new NullPointerException("Forest 2D matrix cannot be null!");
+        if (forest[matchR][matchC] != 't') return 0;
+
 
         //directions here up down left right
         int[][] directions = {
@@ -68,22 +70,21 @@ public class Fire {
         Queue<int[]> burningTree = new LinkedList<>();
         
         //start position of the fire
+        //.offer() adds to the queue like .add() but won’t crash if the queue is full
         burningTree.offer(new int[]{matchR, matchC, 0});
         visited[matchR][matchC] = true;
 
-        int countTime = 0;
+        int  maxTime = 0;
 
-        //where it starts the fire burns each tree and spreads to adjacnet trees
+        //where it starts the fire burns each tree and spreads to adjacent trees
         while (!burningTree.isEmpty()) {
             int[] current = burningTree.poll();
             int curR = current[0];
             int curC = current[1];
             int time = current[2];
 
-            //find the max time and compare between the highest number to the current number 
-            if (time > countTime) {
-                countTime = time;
-            }
+            //Math.max compares countTime to the current number 
+            maxTime = Math.max(maxTime, time);
 
             //check all directions, this is where fire spreads
             for(int[] direction : directions) {
@@ -100,6 +101,6 @@ public class Fire {
                 burningTree.offer(new int[] {newR, newC, time + 1});
             }
         }
-        return countTime;
+        return maxTime;
     }
 }
