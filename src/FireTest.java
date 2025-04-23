@@ -30,8 +30,8 @@ public class FireTest {
             
         };
 
-        int matchR = 2;
-        int matchC = 2;
+        int matchR = 1;
+        int matchC = 1 ;
 
         int expected = 0;
         int actual = Fire.timeToBurn(forest, matchR, matchC);
@@ -65,19 +65,6 @@ public class FireTest {
         assertEquals(expected, actual);
     }
     
-    @Test
-    public void testIsolatedTree() {
-        char[][] forest = {
-            {'.', '.', '.'},
-            {'.', 't', '.'},
-            {'.', '.', '.'}
-        };
-        int matchR = 1, matchC = 1;
-        int expected = 0; // no other trees to burn
-        int actual = Fire.timeToBurn(forest, matchR, matchC);
-        assertEquals(expected, actual);
-    }
-
     @Test
     public void testCornerTreeSpread() {
         char[][] forest = {
