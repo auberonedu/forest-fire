@@ -67,11 +67,13 @@ public class Fire {
         boolean[][] visited = new boolean[ROW][COL];
         Queue<int[]> burningTree = new LinkedList<>();
         
+        //start position of the fire
         burningTree.offer(new int[]{matchR, matchC, 0});
         visited[matchR][matchC] = true;
 
         int countTime = 0;
 
+        //where it starts the fire burns each tree and spreads to adjacnet trees
         while (!burningTree.isEmpty()) {
             int[] current = burningTree.poll();
             int curR = current[0];
@@ -87,15 +89,13 @@ public class Fire {
             for(int[] direction : directions) {
                 int newR = curR + direction[0];
                 int newC = curC + direction[1];
-                
-                visited[newR][newC] = true;
-                burningTree.offer(new int[] {newR, newC, time + 1});
 
                 //check the bounds
                 if (newR < 0 || newC < 0 || newR >= forest.length || 
                 newC >= forest[0].length || visited[newR][newC] || 
                 forest[newR][newC]=='.') continue;
 
+                //mark visited, aded to queue, then increment the time
                 visited[newR][newC] = true;
                 burningTree.offer(new int[] {newR, newC, time + 1});
             }
