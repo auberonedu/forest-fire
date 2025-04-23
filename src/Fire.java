@@ -51,71 +51,57 @@ public class Fire {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
 
-        Queue<List<int[]>> queue = new LinkedList<>();
-        List<int[]> currentPoint = new ArrayList<>();
-
-        currentPoint.add(new int[]{matchR, matchC});
-
+        Queue<int[]> queue = new LinkedList<>();
         boolean[][] visited = new boolean[forest.length][forest[0].length];
 
-        queue.add(currentPoint);
-        queue.add(possibleMoves(forest, matchR, matchC, visited));
-
-        // for (var array : possibleMoves(forest, matchR, matchC, visited)) {
-        //     queue.add(array);
-        // }
+        queue.add(possibleMoves(forest, matchR, matchC));
 
         int burningTime = 0;
 
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             int[] current = queue.poll();
 
             int currentMatchR = current[0];
             int currentMatchC = current[1];
 
-            if(visited[currentMatchR][currentMatchC]) {
+            if (visited[currentMatchR][currentMatchC]) {
                 continue;
-            }            
-            
+            }
+
             burningTime++;
 
             visited[currentMatchR][currentMatchC] = true;
 
-            List<int[]> nextTree = possibleMoves(forest, currentMatchR, currentMatchC, visited);
+            List<int[]> nextTrees = possibleMoves(forest, currentMatchR, currentMatchC);
 
-            queue.addAll(nextTree);
+            queue.addAll(nextTrees);
         }
-
 
         return burningTime;
 
-        
     }
 
-    private static List<int[]> possibleMoves(char[][] forest, int matchR, int matchC, boolean[][] visited) {
-       
-       List<int[]> moves = new ArrayList<>();
+    private static List<int[]> possibleMoves(char[][] forest, int matchR, int matchC) {
 
-       int[][] steps = {
-        {1, 0},
-        {-1, 0},
-        {0, 1},
-        {0, -1}
-       };
+        List<int[]> moves = new ArrayList<>();
 
-        for(int[] step : steps) {
+        int[][] steps = {
+                { 1, 0 },
+                { -1, 0 },
+                { 0, 1 },
+                { 0, -1 }
+        };
+
+        for (int[] step : steps) {
             int newMatchR = matchR + step[0];
             int newMatchC = matchC + step[1];
-        
 
-            if(newMatchR >= 0 && newMatchR < forest.length &&
-                newMatchC >= 0 && newMatchC < forest[0].length &&
-                forest[newMatchR][newMatchC] != '.') {
-                    moves.add(new int[]{newMatchR, newMatchC});
-                }
-
+            if (newMatchR >= 0 && newMatchR < forest.length &&
+                    newMatchC >= 0 && newMatchC < forest[0].length &&
+                    forest[newMatchR][newMatchC] != '.') {
+                moves.add(new int[] { newMatchR, newMatchC });
             }
-
+        }
         return moves;
     }
 }
