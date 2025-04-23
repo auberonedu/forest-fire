@@ -52,24 +52,9 @@ public class Fire {
         if (forest == null)
             throw new NullPointerException("Forest 2D matrix cannot be null!");
 
-        //directions here up down left right
-        int[][] directions = {
-            {1, 0},
-            {-1, 0},
-            {0, 1},
-            {0, -1}
-        };
-
         boolean[][] visited = new boolean[forest.length][forest[0].length];
         Queue<int[]> burningTree = new LinkedList<>();
-
-        int[] startPoint = new int[] { matchR, matchC };
-
-        burningTree.add(startPoint);
-        visited[matchR][matchC] = true;
-
-        int countTime = 0;
-
+        
         while (!burningTree.isEmpty()) {
             int[] current = burningTree.poll();
             int curR = current[0];
@@ -77,6 +62,8 @@ public class Fire {
 
             //find the max time and compare between the highest number to the current number 
 
+            //get the adjacent trees then increment
+            
             //check all directions
             for(int[] direction : directions) {
                 int newR = curR + direction[0];
@@ -87,9 +74,26 @@ public class Fire {
                 visited[newR][newC] = true;
             }
         }
+
+        // int[] startPoint = new int[] { matchR, matchC };
+        // burningTree.add(startPoint);
+        
+        visited[matchR][matchC] = true;
+        int countTime = 0;
         return countTime;
     }
-    
+
+    private static List<int[]> possibleDirections(char[][] forest, int[] currentlocation){
+        //directions here up down left right
+        int[][] directions = {
+            {1, 0},
+            {-1, 0},
+            {0, 1},
+            {0, -1}
+        };
+        
+    }
+
     private static int bfs(char[][] forest, boolean[][] visited, int matchR, int matchC) {
                 
             //edge cases
