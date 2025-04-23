@@ -66,6 +66,7 @@ public class Fire {
         int[] startPoint = new int[] { matchR, matchC };
 
         burningTree.add(startPoint);
+        visited[matchR][matchC] = true;
 
         int countTime = 0;
 
@@ -74,24 +75,25 @@ public class Fire {
             int curR = current[0];
             int curC = current[1];
 
+            //find the max time and compare between the highest number to the current number 
+
+            //check all directions
             for(int[] direction : directions) {
                 int newR = curR + direction[0];
                 int newC = curC + direction[1];
 
-                if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
-                visited[matchR][matchC] = true;
+                //check the bounds
+                if (newR < 0 || newC < 0 || newR >= forest.length || newC >= forest[0].length || visited[newR][newC] || forest[newR][newC]=='.') return 0;
+                visited[newR][newC] = true;
             }
-
-        return bfs(forest, visited, matchR, matchC);
+        }
+        return countTime;
     }
-
-    }
+    
     private static int bfs(char[][] forest, boolean[][] visited, int matchR, int matchC) {
                 
             //edge cases
             if (matchR<0 || matchC<0 || matchR >= forest.length || matchC >= forest[0].length || visited[matchR][matchC] || forest[matchR][matchC]=='.') return 0;
-            visited[matchR][matchC] = true;
-
             return countTime;
         }
 }
