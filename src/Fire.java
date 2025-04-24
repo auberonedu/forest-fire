@@ -40,4 +40,26 @@ public class Fire {
         // just a location. What other information might be useful?
         return -1;
     }
+
+    public static void timetoBurnMoves(char[][] forest, int row, int col){
+
+        if(row < 0 || col < 0 || row >= forest.length || col >= forest[0].length || forest[row][col] != 't'){
+            return;
+        }
+
+        //mark as a road to not visit again
+        forest[row][col] = '.';
+
+        int[][] directions = {
+                {1,0},
+                {-1,0},
+                {0,-1},
+                {0,1}
+        };
+
+        for(int[] direction : directions){
+            timetoBurnMoves(forest, row + direction[0], col + direction[1]);
+        }
+        
+    }
 }
