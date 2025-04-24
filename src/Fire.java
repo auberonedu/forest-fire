@@ -53,7 +53,8 @@ public class Fire {
         // construct linked list of integer array
         Queue<int[]> queue = new LinkedList<>();
 
-        // add the rowm column, and 0 (time) to queue
+        // add the row column, and 0 (time) to queue
+        // first tree starts burning at time 0
         queue.add(new int[] {matchR, matchC, 0});
 
         while (!queue.isEmpty()) {
@@ -63,11 +64,12 @@ public class Fire {
             int col = current[1];
             int currentTime = current[2];
 
+            // track the latest time any tree starts burning
             if(currentTime > time){
                 time = currentTime;
             }
 
-            // add all valid trees to queue
+            // add all valid neighbor trees to queue
             for(int[] nextTrees : timetoBurnMoves(forest, row,col, currentTime)){
                 queue.add(nextTrees);
             }
@@ -94,11 +96,11 @@ public class Fire {
             int newC = col + direction[1];
 
             // validate if direction is within grid and is a tree
-            if(row >= 0 || col >= 0 || row < forest.length || col < forest[0].length || forest[row][col] == 't'){
+            if(newR >= 0 && newC >= 0 && newR < forest.length && newC < forest[0].length && forest[newR][newC] == 't'){
                 //mark as a road to not visit again
                 forest[newR][newC] = '.';
                 //add the tree to list
-                nextTrees.add(new int[]{newR, newC, time++});
+                nextTrees.add(new int[]{newR, newC, time + 1});
 
             }
         }
