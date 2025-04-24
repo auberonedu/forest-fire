@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Fire {
@@ -47,6 +49,7 @@ public class Fire {
             return 0;
         }
 
+        int time = 0;
         // construct linked list of integer array
         Queue<int[]> queue = new LinkedList<>();
 
@@ -56,25 +59,28 @@ public class Fire {
         while (!queue.isEmpty()) {
             int[] current = queue.poll();
 
-            int curR = current[0];
-            int curC = current[1];
-            int currentTime = current[3];
+            int row= current[0];
+            int col = current[1];
+            int currentTime = current[2];
 
-            timetoBurnMoves(forest, curR, curC);
+            if(currentTime > time){
+                time = currentTime;
+            }
 
-            if(currentTime> )
+            // add all valid trees to queue
+            for(int[] nextTrees : timetoBurnMoves(forest, row,col, currentTime)){
+                queue.add(nextTrees);
+            }
 
         }
+
+        return time;
     }
 
-    public static void timetoBurnMoves(char[][] forest, int row, int col){
+    public static List<int[]> timetoBurnMoves(char[][] forest, int row, int col, int time){
 
-        if(row < 0 || col < 0 || row >= forest.length || col >= forest[0].length || forest[row][col] != 't'){
-            return;
-        }
-
-        //mark as a road to not visit again
-        forest[row][col] = '.';
+        // create list for the next trees to burn
+        List<int[]> nextTrees = new ArrayList<>();
 
         int[][] directions = {
                 {1,0},
@@ -84,8 +90,20 @@ public class Fire {
         };
 
         for(int[] direction : directions){
-            timetoBurnMoves(forest, row + direction[0], col + direction[1]);
+            int newR = row + direction[0];
+            int newC = col + direction[1];
+
+            // validate if direction is within grid and is a tree
+            if(row >= 0 || col >= 0 || row < forest.length || col < forest[0].length || forest[row][col] == 't'){
+                //mark as a road to not visit again
+                forest[newR][newC] = '.';
+                //add the tree to list
+                nextTrees.add(new int[]{newR, newC, time++});
+
+            }
         }
+
+        return nextTrees;
         
     }
 }
