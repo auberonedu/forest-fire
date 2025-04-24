@@ -76,7 +76,14 @@ public class Fire {
 
             List<int[]> nextTrees = possibleMoves(forest, currentMatchR, currentMatchC);
 
-            queue.addAll(nextTrees);
+            for(int[] next: nextTrees){
+                int nextR = next[0];
+                int nextC = next[1];
+
+                if(!visited[nextR][nextC]){
+                    queue.add(new int[] {nextR, nextC, currentBurningTime + 1});
+                }
+            }
         }
 
         return burningTime;
