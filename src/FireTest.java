@@ -63,5 +63,19 @@ public class FireTest {
         assertEquals(0, result);
     }
 
+    @Test
+    public void testThatFireDoesntJump(){
+        char[][] forest = {
+            {'t', '.', 't'},
+            {'t', '.', '.'},
+            {'t', '.', 't'}
+        };
 
+        int matchR = 0;
+        int matchC = 0;
+
+        int result = Fire.timeToBurn(forest, matchR, matchC);
+
+        assertEquals(2, result);
+    }
 }
