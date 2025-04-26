@@ -90,34 +90,37 @@ public class Fire {
 
         return time;
     }
+
+
+    public static List<int[]> timeToBurn(char[][] forest, int r, int c, int time) {
+
+        // setting up the data structure to capture all valid trees
+        List<int[]> nextTrees = new ArrayList<>();
+    
+        int[][] directions = {
+                { 1, 0 },
+                { -1, 0 },
+                { 0, -1 },
+                { 0, 1 }
+        };
+    
+        for (int[] direction : directions) {
+            int newR = r + direction[0];
+            int newC = r + direction[1];
+    
+            // checking to see if its valid                                                     //checking to make sure its a tree
+            if (newR >= 0 && newC >= 0 && newR < forest.length && newC < forest[0].length && forest[newR][newC] == 't') {
+                // setting it to a non tree so we can skip over and not do bfs on it
+                forest[newR][newC] = '.';
+    
+                //add this tree to our newTrees cause  its on fire now,
+                // the plus 1 is adding another seccond from the current time. Essentially each new tree adds 1 second to it. 
+                nextTrees.add(new int[] { newR, newC, time + 1 });
+    
+            }
+        }
+        return nextTrees;
 }
 
-public static List<int[]> timeToBurn(char[][] forest, int r, int c, int time) {
 
-    // setting up the data structure to capture all valid trees
-    List<int[]> nextTrees = new ArrayList<>();
-
-    int[][] directions = {
-            { 1, 0 },
-            { -1, 0 },
-            { 0, -1 },
-            { 0, 1 }
-    };
-
-    for (int[] direction : directions) {
-        int newR = r + direction[0];
-        int newC = r + direction[1];
-
-        // checking to see if its valid                                                     //checking to make sure its a tree
-        if (newR >= 0 && newC >= 0 && newR < forest.length && newC < forest[0].length && forest[newR][newC] == 't') {
-            // setting it to a non tree so we can skip over and not do bfs on it
-            forest[newR][newC] = '.';
-
-            //add this tree to our newTrees cause  its on fire now,
-            // the plus 1 is adding another seccond from the current time. Essentially each new tree adds 1 second to it. 
-            nextTrees.add(new int[] { newR, newC, time + 1 });
-
-        }
-    }
-    return nextTrees;
 }
