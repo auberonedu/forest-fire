@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class Fire {
     /**
      * Returns how long it takes for all vulnerable trees to be set on fire if a
@@ -38,6 +43,69 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
-        return -1;
+
+        // base case for if it is not a tree
+        if(forest[matchR][matchC] != 't'){
+            return 0;
+        }
+
+        int time = 0;
+        // construct linked list of integer array
+        Queue<int[]> queue = new LinkedList<>();
+
+        // add the row column, and 0 (time) to queue
+        // first tree starts burning at time 0
+        queue.add(new int[] {matchR, matchC, 0});
+
+        while (!queue.isEmpty()) {
+            int[] current = queue.poll();
+
+            int row= current[0];
+            int col = current[1];
+            int currentTime = current[2];
+
+            // track the latest time any tree starts burning
+            if(currentTime > time){
+                time = currentTime;
+            }
+
+            // add all valid neighbor trees to queue
+            for(int[] nextTrees : timetoBurnMoves(forest, row,col, currentTime)){
+                queue.add(nextTrees);
+            }
+
+        }
+
+        return time;
+    }
+
+    public static List<int[]> timetoBurnMoves(char[][] forest, int row, int col, int time){
+
+        // create list for the next trees to burn
+        List<int[]> nextTrees = new ArrayList<>();
+
+        int[][] directions = {
+                {1,0},
+                {-1,0},
+                {0,-1},
+                {0,1}
+        };
+
+        for(int[] direction : directions){
+            int newR = row + direction[0];
+            int newC = col + direction[1];
+
+            // validate if direction is within grid and is a tree
+            if(newR >= 0 && newC >= 0 && newR < forest.length && newC < forest[0].length && forest[newR][newC] == 't'){
+                //mark as a road to not visit again
+                forest[newR][newC] = '.';
+                //add the tree to list
+                nextTrees.add(new int[]{newR, newC, time + 1});
+
+            }
+        }
+
+        return nextTrees;
+        
     }
 }
