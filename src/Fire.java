@@ -83,7 +83,10 @@ public class Fire {
             }
 
             //forgot, need to now check all the valid neighbors of the tree
-            for(int[] nextTrees : timeToBurn(forest, matchR, matchC, time)){
+
+            // I had the wrong r c and time... ouch
+            // for(int[] nextTrees : timeToBurn(forest, matchR, matchC, time)){
+            for(int[] nextTrees : timeToBurn(forest, row, col, currentTime)){
                 queue.add(nextTrees);
             }
         }
