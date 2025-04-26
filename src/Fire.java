@@ -68,7 +68,14 @@ public class Fire {
         int row = current[0];
         int col = current[1];
         int currentTime = current[2];
+
+
+        //so we can keep track of the longest time a tree is taking to catch on fire
+        if(currentTime > time){
+            time = currentTime;
+        }
     }
+
 
     
         return -1;
