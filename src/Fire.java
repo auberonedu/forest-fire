@@ -52,9 +52,12 @@ public class Fire {
         // just a location. What other information might be useful?
 
         // add a basecase incase its not a tree
-        if (forest[matchR][matchC] != 't') {
+        if (forest[matchR][matchC] != 't' || forest == null ) {
             return 0;
         }
+
+        
+        
 
         int time = 0;
 
@@ -95,6 +98,8 @@ public class Fire {
     }
 
     public static List<int[]> timeToBurn(char[][] forest, int r, int c, int time) {
+
+        
 
         // setting up the data structure to capture all valid trees
         List<int[]> nextTrees = new ArrayList<>();
