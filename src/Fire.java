@@ -81,6 +81,11 @@ public class Fire {
             if (currentTime > time) {
                 time = currentTime;
             }
+
+            //forgot, need to now check all the valid neighbors of the tree
+            for(int[] nextTrees : timeToBurn(forest, matchR, matchC, time)){
+                queue.add(nextTrees);
+            }
         }
 
         return time;
