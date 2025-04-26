@@ -52,7 +52,7 @@ public class Fire {
         // just a location. What other information might be useful?
 
         // add a basecase incase its not a tree
-        if (forest[matchR][matchC] != 't' || forest == null ) {
+        if (forest == null  || forest[matchR][matchC] != 't' ) {
             return 0;
         }
 
