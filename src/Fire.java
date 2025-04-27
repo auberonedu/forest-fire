@@ -51,17 +51,21 @@ public class Fire {
         // just a location. What other information might be useful?
         int rows = forest.length;
         int cols = forest[0].length;
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{matchR, matchC});
         
+        Queue<int[]> queue = new LinkedList<>();
         boolean[][] visited = new boolean[rows][cols];
+        
+        queue.add(new int[]{matchR, matchC});
+        visited[matchR][matchC] = true; // Marking the first cell visited
+
+        finalTime = 0;
 
         while(!queue.isEmpty()) {
             int[] current = 
         }
         
         
-        return -1;
+        return finalTime;
     }
 
     public static int[] possibleMoves(char[][] forest, char[] current) {
