@@ -40,10 +40,10 @@ public class Fire {
      * @return the time at which the final tree to be incinerated starts burning
      */
     private static final int[][] directions = {
-        {-1, 0},
-        { 1, 0},
-        { 0,-1},
-        { 0, 1}
+        {-1, 0}, // LEFT
+        { 1, 0}, // RIGHT
+        { 0,-1}, // UP
+        { 0, 1}  // DOWN
     };
     
      public static int timeToBurn(char[][] forest, int matchR, int matchC) {
@@ -55,33 +55,31 @@ public class Fire {
         Queue<int[]> queue = new LinkedList<>();
         boolean[][] visited = new boolean[rows][cols];
         
-        queue.add(new int[]{matchR, matchC});
+        queue.add(new int[]{matchR, matchC, 0}); // Adding the starting cell with the time at 0
         visited[matchR][matchC] = true; // Marking the first cell visited
 
-        finalTime = 0;
+        int finalTime = 0; // keep track of the time
 
         while(!queue.isEmpty()) {
-            int[] current = 
-        }
-        
-        
-        return finalTime;
-    }
+            int[] current = queue.poll(); // creating a pointer
+            int r = current[0];
+            int c = current[1];
+            int time = current[2]; // We set a third variable when dealing with time/steps 
 
-    public static int[] possibleMoves(char[][] forest, char[] current) {
-        
-        
-        return null;
-    }
+            finalTime = Math.max(finalTime, time); // finding the max amount of time 
 
-    public static int location(char[][] forest, int r, int c) {
-        for(int r = 0; r < forest.length; r++) {
-            for(int c = 0; c < forest[0].length; c++) {
-                new int[]{r, c};
+            for(int[] dir : directions) {
+                int newR = r + dir[0];
+                int newC = c + dir[1];
+
+                if(newR >= 0 && newR < rows &&
+                    newC >= 0 && newC < cols &&
+                    !visited[newR][newC] && forest[newR][newC] == 't') {
+                        visited[newR][newC] = true;
+                        queue.add(new int[]{newR, newC, time + 1}); // adding this neighbor to the queue with time + 1
+                }
             }
         }
-        
-        
-        return 0;
+        return finalTime;
     }
 }
