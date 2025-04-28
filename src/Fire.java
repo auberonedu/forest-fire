@@ -1,3 +1,7 @@
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Fire {
     /**
      * Returns how long it takes for all vulnerable trees to be set on fire if a
@@ -35,9 +39,47 @@ public class Fire {
      * @param matchC The column the match is lit at
      * @return the time at which the final tree to be incinerated starts burning
      */
-    public static int timeToBurn(char[][] forest, int matchR, int matchC) {
+    private static final int[][] directions = {
+        {-1, 0}, // LEFT
+        { 1, 0}, // RIGHT
+        { 0,-1}, // UP
+        { 0, 1}  // DOWN
+    };
+    
+     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
-        return -1;
+        int rows = forest.length;
+        int cols = forest[0].length;
+        
+        Queue<int[]> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[rows][cols];
+        
+        queue.add(new int[]{matchR, matchC, 0}); // Adding the starting cell with the time at 0
+        visited[matchR][matchC] = true; // Marking the first cell visited
+
+        int finalTime = 0; // keep track of the time
+
+        while(!queue.isEmpty()) {
+            int[] current = queue.poll(); // creating a pointer
+            int r = current[0];
+            int c = current[1];
+            int time = current[2]; // We set a third variable when dealing with time/steps 
+
+            finalTime = Math.max(finalTime, time); // finding the max amount of time 
+
+            for(int[] dir : directions) {
+                int newR = r + dir[0];
+                int newC = c + dir[1];
+
+                if(newR >= 0 && newR < rows &&
+                    newC >= 0 && newC < cols &&
+                    !visited[newR][newC] && forest[newR][newC] == 't') {
+                        visited[newR][newC] = true;
+                        queue.add(new int[]{newR, newC, time + 1}); // adding this neighbor to the queue with time + 1
+                }
+            }
+        }
+        return finalTime;
     }
 }
