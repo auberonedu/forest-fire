@@ -79,4 +79,49 @@ public class FireTest {
         int actual = Fire.timeToBurn(forest, 2, 3);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testTimeToBurn_diagonalTreesStartingAtTopLeft() {
+        char[][] forest = {
+            {'t','.','.','.','.'},
+            {'.','t','.','.','.'},
+            {'.','.','t','.','.'},
+            {'.','.','.','t','.'},
+            {'.','.','.','.','t'}
+        };
+
+        int expected = 0;
+        int actual = Fire.timeToBurn(forest, 0, 0);
+        assertEquals(expected, actual);    
+    }
+
+    @Test
+    public void testTimeToBurn_treesInTheCenter() {
+        char[][] forest = {
+            {'.','.','.','.','.'},
+            {'.','.','t','.','.'},
+            {'.','t','t','t','.'},
+            {'.','.','t','.','.'},
+            {'.','.','.','.','.'},
+        };
+
+        int expected = 1;
+        int actual = Fire.timeToBurn(forest, 2, 2);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testTimeToBurn_spiralForest() {
+        char[][] forest = {
+            {'t','t','t','t','t'},
+            {'.','.','.','.','t'},
+            {'.','t','t','.','t'},
+            {'.','t','.','.','t'},
+            {'.','t','t','t','t'},
+        };
+        
+        int expected = 14;
+        int actual = Fire.timeToBurn(forest, 0, 0);
+        assertEquals(expected, actual);
+    }
 }
