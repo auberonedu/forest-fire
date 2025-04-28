@@ -20,4 +20,63 @@ public class FireTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testTimeToBurn_emptyForest() {
+        char[][] forest = {
+            {'.','.','.','.','.'},
+            {'.','.','.','.','.'},
+            {'.','.','.','.','.'},
+            {'.','.','.','.','.'}
+        };
+
+        int expected = 0;
+        int actual = Fire.timeToBurn(forest, 1, 1);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testTimeToBurn_allTrees() {
+        char[][] forest = {
+            {'t','t','t','t','t'},
+            {'t','t','t','t','t'},
+            {'t','t','t','t','t'},
+            {'t','t','t','t','t'},
+            {'t','t','t','t','t'}
+        };
+
+        int expected = 5;
+        int actual = Fire.timeToBurn(forest, 3, 2);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testTimeToBurn_twoColumnsWithTrees() {
+        char[][] forest = {
+            {'t','t','.','.','.'},
+            {'t','t','.','.','.'},
+            {'t','t','.','.','.'},
+            {'t','t','.','.','.'},
+            {'t','t','.','.','.'}
+        };
+
+        int expected = 3;
+        int actual = Fire.timeToBurn(forest, 2, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testTimeToBurn_twoColumnsWithTreesButStartMatchInWhiteSpace() {
+        char[][] forest = {
+            {'t','t','.','.','.'},
+            {'t','t','.','.','.'},
+            {'t','t','.','.','.'},
+            {'t','t','.','.','.'},
+            {'t','t','.','.','.'}
+        };
+
+        int expected = 0;
+        int actual = Fire.timeToBurn(forest, 2, 3);
+        assertEquals(expected, actual);
+    }
 }
