@@ -38,6 +38,8 @@ public class Fire {
     public static int timeToBurn(char[][] forest, int matchR, int matchC) {
         // HINT: when adding to your BFS queue, you can include more information than
         // just a location. What other information might be useful?
+
+        //started working on the timeToBurn method
         return -1;
     }
 }
